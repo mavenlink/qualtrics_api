@@ -4,6 +4,7 @@ module QualtricsAPI
     include Enumerable
     include Virtus.value_object
     include QualtricsAPI::Extensions::SerializableCollection
+    include QualtricsAPI::Extensions::VirtusAttributes
     include QualtricsAPI::Connectable
 
     def each

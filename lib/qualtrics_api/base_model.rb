@@ -2,6 +2,7 @@ module QualtricsAPI
   class BaseModel
     include Virtus.value_object
     include QualtricsAPI::Extensions::SerializableModel
+    include Extensions::VirtusAttributes
     include QualtricsAPI::Connectable
 
     def initialize(options = {})
