@@ -12,22 +12,40 @@ describe QualtricsAPI::SurveyCollection do
       end
 
       context 'when exists' do
-        let(:survey_id) { 'SV_0fEV92PdRg8a2e9' } 
-      
+        let(:survey_id) { 'SV_0fEV92PdRg8a2e9' }
+
         it 'populates the result' do
-          expect(result.attributes).to eq(:id => "SV_0fEV92PdRg8a2e9", :name => "test", :owner_id => "owner_id", :last_modified => nil, :is_active => true)
+          expect(result.attributes).to eq(
+            :id => "SV_0fEV92PdRg8a2e9",
+            :name => "test",
+            :owner_id => "owner_id",
+            :organization_id => "organizationid",
+            :is_active => true,
+            :creation_date => "2016-04-01T09:12:05Z",
+            :last_modified_date => "2016-04-06T15:04:28Z",
+            :last_modified => nil,
+            :expiration => { "end_date" => nil, "start_date" => nil },
+            :questions => {},
+            :export_column_map => {},
+            :blocks => {},
+            :flow => [],
+            :embedded_data => [],
+            :comments => nil,
+            :loop_and_merge => nil,
+            :response_counts => { "auditable" => 0, "deleted" => 2, "generated" => 2 }
+          )
         end
       end
-    
+
       context 'when does not exists' do
-        let(:survey_id) { 'SV_0fEV92PdRg8a2e0' } 
-      
+        let(:survey_id) { 'SV_0fEV92PdRg8a2e0' }
+
         it 'populates the result' do
           expect { result }.to raise_error(QualtricsAPI::NotFoundError)
         end
       end
     end
-    
+
     describe "#fetch" do
       describe "when success" do
         let!(:result) do
@@ -52,7 +70,7 @@ describe QualtricsAPI::SurveyCollection do
         end
       end
     end
-  
+
     describe 'pagination' do
       it 'fetches pages from list endpoint' do
         page1 = page2 = nil

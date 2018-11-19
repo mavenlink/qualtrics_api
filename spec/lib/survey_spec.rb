@@ -8,7 +8,9 @@ describe QualtricsAPI::Survey do
       "ownerId" => "UR_3fnAz35QCGlr725",
       "lastModified" => "2015-03-20 12:56:33",
       "status" => "Inactive",
-      "SurveyCreationDate" => "2015-03-20 12:56:33"
+      "SurveyCreationDate" => "2015-03-20 12:56:33",
+      "flow" => [],
+      "embeddedData" => []
     }
   end
 
@@ -55,7 +57,7 @@ describe QualtricsAPI::Survey do
         expect(subject).to eq(described_class.new(subject.attributes))
       end
     end
-  
+
     context 'when different' do
       it 'returns false' do
         expect(subject).not_to eq(described_class.new)
