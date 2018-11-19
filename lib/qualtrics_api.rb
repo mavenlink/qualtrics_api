@@ -1,3 +1,5 @@
+require "active_support/core_ext/hash"
+
 require 'json'
 require 'virtus'
 require "faraday"
