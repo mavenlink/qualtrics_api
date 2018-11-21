@@ -1,3 +1,5 @@
+require "active_support/core_ext/hash"
+
 require 'json'
 require 'virtus'
 require "faraday"
@@ -12,6 +14,7 @@ require "qualtrics_api/client"
 
 require "qualtrics_api/extensions/serializable_model"
 require "qualtrics_api/extensions/serializable_collection"
+require "qualtrics_api/extensions/virtus_attributes"
 
 require "qualtrics_api/base_model"
 require "qualtrics_api/base_collection"
