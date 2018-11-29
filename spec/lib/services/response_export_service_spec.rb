@@ -52,10 +52,17 @@ describe QualtricsAPI::Services::ResponseExportService do
     end
 
     describe "#start" do
+      let(:response) { double('resBody', body: { "result" => { "id" => "exportId" } }) }
+
+      before do
+        allow(QualtricsAPI.connection).to receive(:post) { response }
+        allow(QualtricsAPI::ResponseExport).to receive(:new).and_call_original
+      end
+
       it "calls url with export params" do
         expect(QualtricsAPI.connection)
           .to receive(:post)
-          .with("responseexports", 
+          .with("responseexports",
                 "format" => "file type",
                 "surveyId" => "s_id",
                 "lastResponseId" => "l_id",
@@ -71,11 +78,12 @@ describe QualtricsAPI::Services::ResponseExportService do
       end
 
       it "assigns and returns a ResponseExport with the id in the url" do
-        allow(QualtricsAPI.connection).to receive(:post)
-          .and_return(double('resBody', body: { "result" => { "id" => "exportId" } }))
-        sut = subject.start
-        expect(sut).to be_a QualtricsAPI::ResponseExport
-        expect(subject.result).to eq sut
+        expect(QualtricsAPI::ResponseExport).to receive(:new).with(id: "exportId", connection: subject.connection)
+
+        response_export = subject.start
+
+        expect(response_export).to be_a QualtricsAPI::ResponseExport
+        expect(subject.result).to eq response_export
       end
     end
   end
