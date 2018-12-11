@@ -25,14 +25,23 @@ module QualtricsAPI
       res
     end
 
-    def all
-      map {|element| element}
+    def filter(options = {})
+      Array.new.tap do |result|
+        each_page(options) do |page|
+          page.each { |element| result.push(element) }
+        end
+      end
     end
 
-    def each_page
+    def all
+      filter
+    end
+
+    def each_page(options = {})
       endpoint = list_endpoint
+
       loop do
-        response = QualtricsAPI.connection(self).get(endpoint)
+        response = QualtricsAPI.connection(self).get(endpoint, options)
         endpoint = response.body["result"]["nextPage"]
         yield parse_page(response)
         break unless endpoint
@@ -52,8 +61,14 @@ module QualtricsAPI
     end
 
     def parse_page(response)
-      response.body["result"]["elements"].map do |element|
-        build_result(element).propagate_connection(self)
+      return [] unless response.body["result"]
+
+      if response.body["result"]["elements"]
+        response.body["result"]["elements"].map do |element|
+          build_result(element).propagate_connection(self)
+        end
+      else
+        Array.wrap(build_result(response.body["result"]).propagate_connection(self))
       end
     end
   end
