@@ -20,17 +20,21 @@ require "qualtrics_api/extensions/virtus_attributes"
 require "qualtrics_api/base_model"
 require "qualtrics_api/base_collection"
 
-require "qualtrics_api/survey"
-require "qualtrics_api/survey_collection"
-require "qualtrics_api/response_export"
-require "qualtrics_api/response_export_collection"
-require "qualtrics_api/panel"
-require "qualtrics_api/panel_collection"
-require "qualtrics_api/panel_member"
-require "qualtrics_api/panel_member_collection"
-require "qualtrics_api/panel_import"
 require "qualtrics_api/event_subscription"
 require "qualtrics_api/event_subscription_collection"
+require "qualtrics_api/library_message"
+require "qualtrics_api/library_message_collection"
+require "qualtrics_api/panel"
+require "qualtrics_api/panel_collection"
+require "qualtrics_api/panel_import"
+require "qualtrics_api/panel_member"
+require "qualtrics_api/panel_member_collection"
+require "qualtrics_api/response_export"
+require "qualtrics_api/response_export_collection"
+require "qualtrics_api/survey"
+require "qualtrics_api/survey_collection"
+require "qualtrics_api/user"
+require "qualtrics_api/user_collection"
 
 require "qualtrics_api/services/response_export_service"
 
@@ -43,6 +47,7 @@ module QualtricsAPI
     def_delegator :client, :response_exports
     def_delegator :client, :panels
     def_delegator :client, :event_subscriptions
+    def_delegator :client, :users
 
     def connection(parent = nil)
       return parent.connection if parent && parent.connection
