@@ -4,6 +4,7 @@ module QualtricsAPI
       attribute :id, String
       attribute :description, String
       attribute :category, String
+      attribute :messages, Json
     end
 
     private
@@ -12,7 +13,8 @@ module QualtricsAPI
       {
         :id => "id",
         :description => "description",
-        :category => "category"
+        :category => "category",
+        :messages => "messages"
       }
     end
   end
