@@ -23,7 +23,11 @@ module QualtricsAPI
     end
 
     def messages(options = {})
-      @messages ||= QualtricsAPI::LibraryMessageCollection.new(options.merge(id: id)).propagate_connection(self)
+      @messages ||= message_collection.all
+    end
+
+    def message_collection
+      @message_collection ||= QualtricsAPI::LibraryMessageCollection.new(options.merge(id: id)).propagate_connection(self)
     end
 
     private
