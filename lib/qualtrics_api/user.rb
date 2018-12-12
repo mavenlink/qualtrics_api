@@ -22,12 +22,12 @@ module QualtricsAPI
       attribute :permissions, Json
     end
 
-    def messages(options = {})
-      @messages ||= message_collection.all
+    def message_collection(options = {})
+      @message_collection ||= QualtricsAPI::LibraryMessageCollection.new(options.merge(id: id)).propagate_connection(self)
     end
 
-    def message_collection
-      @message_collection ||= QualtricsAPI::LibraryMessageCollection.new(options.merge(id: id)).propagate_connection(self)
+    def messages
+      @messages ||= message_collection.all
     end
 
     private
