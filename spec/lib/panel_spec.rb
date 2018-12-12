@@ -48,7 +48,7 @@ describe QualtricsAPI::Panel do
         expect(subject).to eq(described_class.new(subject.attributes))
       end
     end
-  
+
     context 'when different' do
       it 'returns false' do
         expect(subject).not_to eq(described_class.new)
@@ -65,13 +65,13 @@ describe QualtricsAPI::Panel do
     end
   end
 
-  describe '#create' do
+  describe '#create_member' do
     let(:member) { QualtricsAPI::PanelMember.new }
     it 'is delegated to the panel member collection' do
       collection_double = double()
       allow(subject).to receive(:members) { collection_double }
       expect(collection_double).to receive(:create).with(member)
-      subject.create(member)
+      subject.create_member(member)
     end
   end
 end

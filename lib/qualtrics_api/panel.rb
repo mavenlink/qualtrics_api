@@ -15,7 +15,7 @@ module QualtricsAPI
       members.import_members(mbs)
     end
 
-    def create(member)
+    def create_member(member)
       members.create(member)
     end
 
