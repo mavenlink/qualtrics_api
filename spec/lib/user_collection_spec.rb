@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe QualtricsAPI::UserCollection do
   subject { described_class.new }
+  let(:connection_double) { instance_double(Faraday::Connection) }
   let(:user_response) { instance_double(Faraday::Response, status: response_status, body: response_body) }
   let(:response_status) { 200 }
   let(:response_body) { {
@@ -40,14 +41,13 @@ describe QualtricsAPI::UserCollection do
     }
   } }
 
-  describe "#find" do
-    let(:connection_double) { instance_double(Faraday::Connection) }
-    let(:user_id) { "UR_aBcD1234" }
+  before do
+    allow(QualtricsAPI).to receive(:connection).with(subject) { connection_double }
+    allow(connection_double).to receive(:get) { user_response }
+  end
 
-    before do
-      allow(QualtricsAPI).to receive(:connection).with(subject) { connection_double }
-      allow(connection_double).to receive(:get) { user_response }
-    end
+  describe "#find" do
+    let(:user_id) { "UR_aBcD1234" }
 
     it "calls get with the given id on the users endpoint" do
       expect(QualtricsAPI).to receive(:connection).with(subject)
@@ -71,6 +71,20 @@ describe QualtricsAPI::UserCollection do
       it "returns nil" do
         expect(subject.find(user_id)).to be_nil
       end
+    end
+  end
+
+  describe "#filter" do
+    let(:filters) { { username: "someuser" } }
+
+    it "calls get with the given options on the users endpoint" do
+      expect(QualtricsAPI).to receive(:connection).with(subject)
+      expect(connection_double).to receive(:get).with("users", filters)
+      subject.filter(filters)
+    end
+
+    it "returns the result array of filtered objects" do
+      expect(subject.filter(filters)).to include a_kind_of QualtricsAPI::User
     end
   end
 end
