@@ -20,6 +20,7 @@ require "qualtrics_api/extensions/virtus_attributes"
 require "qualtrics_api/base_model"
 require "qualtrics_api/base_collection"
 
+require "qualtrics_api/distribution"
 require "qualtrics_api/event_subscription"
 require "qualtrics_api/event_subscription_collection"
 require "qualtrics_api/library_message"
