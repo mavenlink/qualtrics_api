@@ -60,7 +60,7 @@ describe QualtricsAPI::Panel do
     it 'is delegated to the panel member collection' do
       collection_double = double()
       allow(subject).to receive(:members) { collection_double }
-      collection_double.should_receive(:import_members).with([])
+      expect(collection_double).to receive(:import_members).with([])
       subject.import_members([])
     end
   end
@@ -72,6 +72,30 @@ describe QualtricsAPI::Panel do
       allow(subject).to receive(:members) { collection_double }
       expect(collection_double).to receive(:create).with(member)
       subject.create_member(member)
+    end
+  end
+
+  describe "#create" do
+    subject { described_class.new(request_attributes) }
+    let(:request_attributes) { { "libraryId" => "1234", "name" => "Name", "category" => "Category", "folder" => "FOLDER" } }
+    let(:connection_double) { instance_double(Faraday::Connection) }
+    let(:panel_response) { instance_double(Faraday::Response, body: { "result" => { id: "9999", library_id: "1234", name: "Name", category: "Category" } }) }
+
+    context "when successful" do
+      before do
+        allow(QualtricsAPI).to receive(:connection).with(subject) { connection_double }
+        allow(connection_double).to receive(:post) { panel_response }
+      end
+
+      it "calls the Qualtrics API with the correct payload attributes" do
+        expect(connection_double).to receive(:post).with("mailinglists", request_attributes)
+        subject.create
+      end
+
+      it "returns the Panel with response id" do
+        expect(subject.create).to be_a QualtricsAPI::Panel
+        expect(subject.create.id).to eq panel_response.body["result"]["id"]
+      end
     end
   end
 end
