@@ -21,7 +21,7 @@ module QualtricsAPI
     end
 
     def create
-      payload  = self.attributes.transform_keys { |key| create_attributes[key] }.delete_if { |k, _v| k.nil? }
+      payload  = create_attributes.transform_keys { |key| create_attributes_mappings[key] }
       response = QualtricsAPI.connection(self).post("mailinglists", payload).body["result"]
 
       return QualtricsAPI::Panel.new(self.attributes.merge(id: response["id"]))
@@ -30,6 +30,10 @@ module QualtricsAPI
     private
 
     def create_attributes
+      self.attributes.except(*(attributes_mappings.keys - create_attributes_mappings.keys))
+    end
+
+    def create_attributes_mappings
       {
         :library_id => "libraryId",
         :name => "name",

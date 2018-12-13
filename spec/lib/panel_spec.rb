@@ -77,7 +77,7 @@ describe QualtricsAPI::Panel do
 
   describe "#create" do
     subject { described_class.new(request_attributes) }
-    let(:request_attributes) { { "libraryId" => "1234", "name" => "Name", "category" => "Category", "folder" => "FOLDER" } }
+    let(:request_attributes) { { "libraryId" => "1234", "name" => "Name", "category" => "Category" } }
     let(:connection_double) { instance_double(Faraday::Connection) }
     let(:panel_response) { instance_double(Faraday::Response, body: { "result" => { id: "9999", library_id: "1234", name: "Name", category: "Category" } }) }
 
