@@ -5,7 +5,6 @@ require 'open-uri'
 require 'virtus'
 require "faraday"
 require "faraday_middleware"
-require "pry-byebug"
 
 require "qualtrics_api/version"
 require "qualtrics_api/request_error_handler"
