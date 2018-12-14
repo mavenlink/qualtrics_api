@@ -30,7 +30,7 @@ module QualtricsAPI
     private
 
     def create_attributes
-      self.attributes.slice(*create_attributes_mappings.keys)
+      self.attributes.compact.slice(*create_attributes_mappings.keys)
     end
 
     def create_attributes_mappings
