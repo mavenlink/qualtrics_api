@@ -24,7 +24,7 @@ module QualtricsAPI
       payload  = create_attributes.transform_keys { |key| create_attributes_mappings[key] }
       response = QualtricsAPI.connection(self).post("mailinglists", payload).body["result"]
 
-      return QualtricsAPI::Panel.new(self.attributes.merge(id: response["id"]))
+      QualtricsAPI::Panel.new(self.attributes.merge(id: response["id"]))
     end
 
     private
