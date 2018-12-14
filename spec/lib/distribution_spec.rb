@@ -68,4 +68,57 @@ describe QualtricsAPI::Distribution do
     embedded_data: qualtrics_response["embeddedData"],
     stats: qualtrics_response["stats"])
   }
+
+  describe "#create" do
+    let(:request_attributes) { {
+      "sendDate" => "2014-02-18T22:57:04Z",
+      "header" => {
+        "fromEmail" => "apitest@qualtrics.com",
+        "replyToEmail" => "apitest@qualtrics.com",
+        "fromName" => "Api Test",
+        "subject" => "flow test"
+      },
+      "recipients" => {
+        "mailingListId" => "ML_abc123",
+        "contactId" => "C_abc123",
+        "libraryId" => "UR_abc123",
+        "sampleId" => "S_abc123"
+      },
+      "message" => {
+        "libraryId" => "UR_abc123",
+        "messageId" => "MS_abc123",
+        "messageText" => "This is a message"
+      },
+      "surveyLink" => {
+        "surveyId" => "SV_abc123",
+        "expirationDate" => "2014-04-19T21:57:04Z",
+        "linkType" => "Individual"
+      },
+      "embeddedData" => {
+        "emailAuthor" => "bob",
+        "emailType" => "leading question"
+      }
+    } }
+    let(:connection_double) { instance_double(Faraday::Connection) }
+    let(:distribution_response) { instance_double(Faraday::Response, body: distribution_response_body) }
+    let(:distribution_response_body) { { "result" => request_attributes.merge("id" => "EMD_abc123") } }
+
+    context "when successful" do
+      before do
+        allow(QualtricsAPI).to receive(:connection).with(subject) { connection_double }
+        allow(connection_double).to receive(:post) { distribution_response }
+      end
+
+      it "calls the Qualtrics API with the correct payload attributes" do
+        expect(connection_double).to receive(:post).with("distributions", request_attributes)
+        subject.create
+      end
+
+      it "returns the Panel with response id" do
+        saved_subject = subject.create
+        expect(saved_subject).to be_a QualtricsAPI::Distribution
+        expect(saved_subject.id).to eq distribution_response.body["result"]["id"]
+      end
+    end
+  end
 end

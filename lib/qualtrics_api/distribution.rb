@@ -18,10 +18,17 @@ module QualtricsAPI
       attribute :stats, Json
     end
 
+    def create
+      response = QualtricsAPI.connection(self).post("distributions", create_attributes).body["result"]
+
+      QualtricsAPI::Distribution.new(self.attributes.merge(id: response["id"]))
+    end
+
     private
 
     def create_attributes
-      self.attributes.slice(create_attributes_mappings.keys)
+      attrs = self.attributes.compact.slice(*create_attributes_mappings.keys).merge(header: self.headers)
+      attrs.deep_transform_keys { |key| key.to_s.camelize(:lower) }
     end
 
     def create_attributes_mappings
