@@ -75,7 +75,7 @@ describe QualtricsAPI::UserCollection do
   end
 
   describe "#filter" do
-    let(:filters) { { username: "someuser" } }
+    let(:filters) { { "username" => "someuser" } }
 
     it "calls get with the given options on the users endpoint" do
       expect(QualtricsAPI).to receive(:connection).with(subject)

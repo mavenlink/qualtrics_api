@@ -41,7 +41,7 @@ module QualtricsAPI
       endpoint = list_endpoint
 
       loop do
-        response = QualtricsAPI.connection(self).get(endpoint, options)
+        response = QualtricsAPI.connection(self).get(endpoint, camelize_keys(options))
         endpoint = response.body["result"]["nextPage"]
         yield parse_page(response)
         break unless endpoint
@@ -49,7 +49,7 @@ module QualtricsAPI
     end
 
     def find(id, options = {})
-      response = QualtricsAPI.connection(self).get(endpoint(id), options)
+      response = QualtricsAPI.connection(self).get(endpoint(id), camelize_keys(options))
       return nil unless response.status == 200
       build_result(response.body['result']).propagate_connection(self)
     end
@@ -70,6 +70,10 @@ module QualtricsAPI
       else
         Array.wrap(build_result(response.body["result"]).propagate_connection(self))
       end
+    end
+
+    def camelize_keys(hash)
+      hash.deep_transform_keys { |key| key.to_s.camelize(:lower) }
     end
   end
 end
