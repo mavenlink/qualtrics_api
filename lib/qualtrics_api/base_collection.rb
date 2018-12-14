@@ -48,8 +48,8 @@ module QualtricsAPI
       end
     end
 
-    def find(id)
-      response = QualtricsAPI.connection(self).get(endpoint(id))
+    def find(id, options = {})
+      response = QualtricsAPI.connection(self).get(endpoint(id), options)
       return nil unless response.status == 200
       build_result(response.body['result']).propagate_connection(self)
     end
