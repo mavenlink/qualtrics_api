@@ -21,6 +21,12 @@ describe QualtricsAPI::Client do
     end
   end
 
+  describe "#distributions" do
+    it "returns a DistributionCollection" do
+      expect(subject.distributions).to be_a QualtricsAPI::DistributionCollection
+    end
+  end
+
   describe "#initialize" do
     subject { QualtricsAPI::Client }
 
