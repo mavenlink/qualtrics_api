@@ -10,16 +10,22 @@ describe QualtricsAPI::PanelCollection do
       end
 
       context 'when exists' do
-        let(:panel_id) { 'ML_00c5BS2WNUCWQIt' } 
-      
+        let(:panel_id) { 'ML_00c5BS2WNUCWQIt' }
+
         it 'populates the result' do
-          expect(result.attributes).to eq(:id => "ML_00c5BS2WNUCWQIt", :library_id => "UR_5dURLpfp5tm43EV", :name => "Panel name", :category => "Unassigned")
+          expect(result.attributes).to eq({
+            :id => "ML_00c5BS2WNUCWQIt",
+            :folder => nil,
+            :library_id => "UR_5dURLpfp5tm43EV",
+            :name => "Panel name",
+            :category => "Unassigned"
+          })
         end
       end
-    
+
       context 'when does not exists' do
-        let(:panel_id) { 'ML_00c5BS2WNUCWQI0' } 
-      
+        let(:panel_id) { 'ML_00c5BS2WNUCWQI0' }
+
         it 'raises bad request error' do
           expect { result }.to raise_error(QualtricsAPI::BadRequestError)
         end
