@@ -67,9 +67,13 @@ describe QualtricsAPI::Panel do
 
   describe '#create_member' do
     let(:member) { QualtricsAPI::PanelMember.new }
-    it 'is delegated to the panel member collection' do
-      collection_double = double()
+    let(:collection_double) { double() }
+
+    before do
       allow(subject).to receive(:members) { collection_double }
+    end
+
+    it 'is delegated to the panel member collection' do
       expect(collection_double).to receive(:create).with(member)
       subject.create_member(member)
     end
