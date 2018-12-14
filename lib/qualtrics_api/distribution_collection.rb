@@ -1,7 +1,11 @@
 module QualtricsAPI
   class DistributionCollection < BaseCollection
-    def find(id, survey_id)
-      super(id, { "surveyId" => survey_id })
+    def find(id, survey_id = nil, options = {})
+      if survey_id.nil?
+        raise ArgumentError.new("`survey_id` must be included when finding a distribution")
+      end
+
+      super(id, options.merge("surveyId" => survey_id))
     end
 
     private

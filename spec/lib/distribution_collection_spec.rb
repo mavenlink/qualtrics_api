@@ -89,6 +89,12 @@ describe QualtricsAPI::DistributionCollection do
         expect(subject.find(distribution_id, survey_id)).to be_nil
       end
     end
+
+    context "when surveyId is not given" do
+      it "raises an ArgumentError" do
+        expect { subject.find(distribution_id) }.to raise_error(ArgumentError, "`survey_id` must be included when finding a distribution")
+      end
+    end
   end
 
   describe "#filter" do
