@@ -69,7 +69,7 @@ describe QualtricsAPI::DistributionCollection do
     it "calls get with the given id on the users endpoint" do
       expect(QualtricsAPI).to receive(:connection).with(subject)
       expect(connection_double).to receive(:get).with("distributions/#{distribution_id}", { "surveyId" => survey_id })
-      subject.find(distribution_id, survey_id)
+      subject.find(distribution_id, survey_id: survey_id)
     end
 
     context "when the response status is 200" do
@@ -78,7 +78,7 @@ describe QualtricsAPI::DistributionCollection do
       end
 
       it "returns the user" do
-        expect(subject.find(distribution_id, survey_id)).to be_a QualtricsAPI::Distribution
+        expect(subject.find(distribution_id, survey_id: survey_id)).to be_a QualtricsAPI::Distribution
       end
     end
 
@@ -86,13 +86,13 @@ describe QualtricsAPI::DistributionCollection do
       let(:response_status) { 404 }
 
       it "returns nil" do
-        expect(subject.find(distribution_id, survey_id)).to be_nil
+        expect(subject.find(distribution_id, survey_id: survey_id)).to be_nil
       end
     end
 
     context "when surveyId is not given" do
       it "raises an ArgumentError" do
-        expect { subject.find(distribution_id) }.to raise_error(ArgumentError, "`survey_id` must be included when finding a distribution")
+        expect { subject.find(distribution_id) }.to raise_error(ArgumentError, "`surveyId` must be included when finding a distribution")
       end
     end
   end

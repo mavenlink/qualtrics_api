@@ -1,11 +1,11 @@
 module QualtricsAPI
   class DistributionCollection < BaseCollection
-    def find(id, survey_id = nil, options = {})
-      if survey_id.nil?
-        raise ArgumentError.new("`survey_id` must be included when finding a distribution")
+    def find(id, options = {})
+      if camelize_keys(options)["surveyId"].nil?
+        raise ArgumentError.new("`surveyId` must be included when finding a distribution")
       end
 
-      super(id, options.merge("surveyId" => survey_id))
+      super
     end
 
     private
