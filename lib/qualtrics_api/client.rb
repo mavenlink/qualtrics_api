@@ -26,6 +26,10 @@ module QualtricsAPI
       QualtricsAPI::UserCollection.new(options).propagate_connection(self)
     end
 
+    def distributions(options = {})
+      QualtricsAPI::DistributionCollection.new(options).propagate_connection(self)
+    end
+
     private
 
     def establish_connection(api_token, data_center_id)

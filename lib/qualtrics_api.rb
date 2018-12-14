@@ -1,4 +1,5 @@
 require "active_support/core_ext/hash"
+require "active_support/core_ext/string"
 
 require 'json'
 require 'open-uri'
@@ -20,6 +21,8 @@ require "qualtrics_api/extensions/virtus_attributes"
 require "qualtrics_api/base_model"
 require "qualtrics_api/base_collection"
 
+require "qualtrics_api/distribution"
+require "qualtrics_api/distribution_collection"
 require "qualtrics_api/event_subscription"
 require "qualtrics_api/event_subscription_collection"
 require "qualtrics_api/library_message"
@@ -48,6 +51,7 @@ module QualtricsAPI
     def_delegator :client, :panels
     def_delegator :client, :event_subscriptions
     def_delegator :client, :users
+    def_delegator :client, :distributions
 
     def connection(parent = nil)
       return parent.connection if parent && parent.connection
