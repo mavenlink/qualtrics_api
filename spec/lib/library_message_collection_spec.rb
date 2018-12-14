@@ -30,7 +30,7 @@ describe QualtricsAPI::LibraryMessageCollection do
 
     it "calls get with the given id on the users endpoint" do
       expect(QualtricsAPI).to receive(:connection).with(subject)
-      expect(connection_double).to receive(:get).with("libraries/#{subject.id}/messages/#{message_id}")
+      expect(connection_double).to receive(:get).with("libraries/#{subject.id}/messages/#{message_id}", {})
       subject.find(message_id)
     end
 

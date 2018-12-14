@@ -51,7 +51,7 @@ describe QualtricsAPI::UserCollection do
 
     it "calls get with the given id on the users endpoint" do
       expect(QualtricsAPI).to receive(:connection).with(subject)
-      expect(connection_double).to receive(:get).with("users/#{user_id}")
+      expect(connection_double).to receive(:get).with("users/#{user_id}", {})
       subject.find(user_id)
     end
 
