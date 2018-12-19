@@ -8,7 +8,7 @@ module QualtricsAPI
           value = JSON.parse(value) unless value.is_a? ::Hash
 
           value.deep_transform_keys do |key|
-            key.upcase == key ? key.to_sym : key.underscore.to_sym
+            key.upcase == key ? key.to_sym : key.to_s.underscore.to_sym
           end.with_indifferent_access
         end
       end
