@@ -9,9 +9,9 @@ module QualtricsAPI
       res = QualtricsAPI.connection(self)
                   .post("mailinglists/#{id}/contacts", payload)
                   .body["result"]
-      return QualtricsAPI::PanelMember.new(panel_member.attributes.merge({ id: res['id'] }))
+      return QualtricsAPI::PanelMember.new(panel_member.attributes.merge({ id: res['id'] })).propagate_connection(self)
     end
-  
+
     def import_members(panel_members)
       payload = {
         contacts: Faraday::UploadIO.new(StringIO.new(panel_members.to_json), 'application/json', 'contacts.json')
@@ -32,7 +32,7 @@ module QualtricsAPI
     end
 
     private
-  
+
     def build_result(element)
       QualtricsAPI::PanelMember.new(element)
     end

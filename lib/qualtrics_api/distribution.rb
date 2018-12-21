@@ -21,7 +21,7 @@ module QualtricsAPI
     def create
       response = QualtricsAPI.connection(self).post("distributions", create_attributes).body["result"]
 
-      QualtricsAPI::Distribution.new(self.attributes.merge(id: response["id"]))
+      QualtricsAPI::Distribution.new(self.attributes.merge(id: response["id"])).propagate_connection(self)
     end
 
     private
