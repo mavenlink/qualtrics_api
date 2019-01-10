@@ -78,4 +78,12 @@ describe QualtricsAPI::User do
       subject.messages
     end
   end
+
+  describe "#get_message" do
+    let(:id) { "MS_982713" }
+    it "gets a specific message using a given id for the user" do
+      expect(collection_double).to receive(:find).with(id)
+      subject.get_message(id)
+    end
+  end
 end

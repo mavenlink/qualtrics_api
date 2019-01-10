@@ -30,6 +30,10 @@ module QualtricsAPI
       @messages ||= message_collection.all
     end
 
+    def get_message(id)
+      message_collection.find(id)
+    end
+
     private
 
     def attributes_mappings
