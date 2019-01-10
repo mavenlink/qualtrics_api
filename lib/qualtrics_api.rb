@@ -1,3 +1,5 @@
+$: << File.expand_path(File.dirname(__FILE__))
+
 require "active_support/core_ext/hash"
 require "active_support/core_ext/string"
 
