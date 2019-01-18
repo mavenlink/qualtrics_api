@@ -1,5 +1,5 @@
 module QualtricsAPI
-  class User < BaseModel
+  class User < Library
     values do
       attribute :id, String
       attribute :division_id, String
@@ -20,14 +20,6 @@ module QualtricsAPI
       attribute :timezone, String
       attribute :response_counts, Json
       attribute :permissions, Json
-    end
-
-    def message_collection(options = {})
-      @message_collection ||= QualtricsAPI::LibraryMessageCollection.new(options.merge(id: id)).propagate_connection(self)
-    end
-
-    def messages
-      @messages ||= message_collection.all
     end
 
     private
