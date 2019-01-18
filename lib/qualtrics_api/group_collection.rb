@@ -11,7 +11,7 @@ module QualtricsAPI
     end
 
     def list_endpoint
-      'groups'
+      "groups"
     end
 
     def endpoint(id)
