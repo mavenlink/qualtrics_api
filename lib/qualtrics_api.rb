@@ -24,6 +24,7 @@ require "qualtrics_api/library"
 
 require "qualtrics_api/directory"
 require "qualtrics_api/directory_collection"
+require "qualtrics_api/directory_mailing_list"
 require "qualtrics_api/distribution"
 require "qualtrics_api/distribution_collection"
 require "qualtrics_api/event_subscription"
