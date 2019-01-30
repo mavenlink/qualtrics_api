@@ -22,6 +22,7 @@ require "qualtrics_api/base_model"
 require "qualtrics_api/base_collection"
 require "qualtrics_api/library"
 
+require "qualtrics_api/directory"
 require "qualtrics_api/distribution"
 require "qualtrics_api/distribution_collection"
 require "qualtrics_api/event_subscription"
