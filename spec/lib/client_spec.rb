@@ -27,6 +27,18 @@ describe QualtricsAPI::Client do
     end
   end
 
+  describe "#groups" do
+    it "returns a GroupCollection" do
+      expect(subject.groups).to be_a QualtricsAPI::GroupCollection
+    end
+  end
+
+  describe "#directories" do
+    it "returns a DirectoryCollection" do
+      expect(subject.directories).to be_a QualtricsAPI::DirectoryCollection
+    end
+  end
+
   describe "#initialize" do
     subject { QualtricsAPI::Client }
 

@@ -23,6 +23,7 @@ require "qualtrics_api/base_collection"
 require "qualtrics_api/library"
 
 require "qualtrics_api/directory"
+require "qualtrics_api/directory_collection"
 require "qualtrics_api/distribution"
 require "qualtrics_api/distribution_collection"
 require "qualtrics_api/event_subscription"
@@ -57,6 +58,7 @@ module QualtricsAPI
     def_delegator :client, :users
     def_delegator :client, :distributions
     def_delegator :client, :groups
+    def_delegator :client, :directories
 
     def connection(parent = nil)
       return parent.connection if parent && parent.connection
