@@ -1,6 +1,7 @@
 module QualtricsAPI
   class DirectoryMailingList < BaseModel
     values do
+      attribute :id, String
       attribute :mailing_list_id, String
       attribute :name, String
       attribute :owner_id, String
@@ -13,6 +14,7 @@ module QualtricsAPI
 
     def attributes_mappings
       {
+        id: "id",
         mailing_list_id: "mailingListId",
         name: "name",
         owner_id: "ownerId",
