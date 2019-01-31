@@ -8,6 +8,12 @@ module QualtricsAPI
       find(directory_mailing_list_id)
     end
 
+    def create_mailing_list(directory_mailing_list)
+      response = QualtricsAPI.connection(self).post(list_endpoint, directory_mailing_list.create_attributes).body["result"]
+
+      QualtricsAPI::DirectoryMailingList.new(directory_mailing_list.attributes.merge(id: response["id"])).propagate_connection(self)
+    end
+
     private
 
     def build_result(element)

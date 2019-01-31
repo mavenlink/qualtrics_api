@@ -10,7 +10,19 @@ module QualtricsAPI
       attribute :contact_count, Integer
     end
 
+    def create_attributes
+      attrs = self.attributes.compact.slice(*create_attributes_mappings.keys)
+      attrs.deep_transform_keys { |key| key.to_s.camelize(:lower) }
+    end
+
     private
+
+    def create_attributes_mappings
+      {
+        name: "name",
+        owner_id: "ownerId"
+      }
+    end
 
     def attributes_mappings
       {
