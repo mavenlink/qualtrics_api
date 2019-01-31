@@ -22,7 +22,7 @@ module QualtricsAPI
 
     def import_attributes
       attrs = self.attributes.compact.slice(*import_attributes_mappings.keys)
-      attrs.deep_transform_keys { |key| key.to_s.camelize(:lower) }
+      attrs.transform_keys { |key| import_attributes_mappings[key] }
     end
 
     private

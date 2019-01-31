@@ -46,14 +46,14 @@ describe QualtricsAPI::DirectoryContact do
 
   describe "#import_attributes" do
     let(:import_attributes) { {
-      "directoryUnsubscribed" => qualtrics_response["directoryUnsubscribed"],
-      "email" => qualtrics_response["email"],
-      "embeddedData" => qualtrics_response["embeddedData"],
-      "externalReference" => qualtrics_response["extRef"],
-      "firstName" => qualtrics_response["firstName"],
-      "language" => qualtrics_response["language"],
-      "lastName" => qualtrics_response["lastName"],
-      "transactionData" => qualtrics_response["transactionData"]
+      "unsubscribed"    => subject.directory_unsubscribed,
+      "email"           => subject.email,
+      "embeddedData"    => subject.embedded_data,
+      "extRef"          => subject.external_reference,
+      "firstName"       => subject.first_name,
+      "language"        => subject.language,
+      "lastName"        => subject.last_name,
+      "transactionData" => subject.transaction_data
     } }
 
     it "returns only the correctly formatted attributes" do
