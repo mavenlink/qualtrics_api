@@ -4,8 +4,8 @@ module QualtricsAPI
       attribute :id, String
     end
 
-    def [](mailing_list_id)
-      find(mailing_list_id)
+    def [](directory_mailing_list_id)
+      find(directory_mailing_list_id)
     end
 
     private
@@ -18,8 +18,8 @@ module QualtricsAPI
       "directories/#{id}/mailinglists"
     end
 
-    def endpoint(mailing_list_id)
-      "directories/#{id}/mailinglists/#{mailing_list_id}"
+    def endpoint(directory_mailing_list_id)
+      "directories/#{id}/mailinglists/#{directory_mailing_list_id}"
     end
   end
 end

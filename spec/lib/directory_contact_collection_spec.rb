@@ -34,7 +34,7 @@ describe QualtricsAPI::DirectoryContactCollection do
 
   describe "#find" do
     before do
-      allow(QualtricsAPI).to receive(:connection).with(subject) { connection_double}
+      allow(QualtricsAPI).to receive(:connection).with(subject) { connection_double }
       allow(connection_double).to receive(:get) { response }
     end
 
