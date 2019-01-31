@@ -21,4 +21,15 @@ describe QualtricsAPI::DirectoryMailingList do
     creation_date: qualtrics_response["creationDate"],
     contact_count: qualtrics_response["contactCount"])
   }
+
+  describe "#create_attributes" do
+    let(:create_attributes) { {
+      "name" => subject.name,
+      "ownerId" => subject.owner_id
+    } }
+
+    it "returns only the correctly formatted attributes" do
+      expect(subject.create_attributes).to eq create_attributes
+    end
+  end
 end
