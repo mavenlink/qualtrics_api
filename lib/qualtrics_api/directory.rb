@@ -23,6 +23,10 @@ module QualtricsAPI
       transaction_batch_collection.create_transaction_batch
     end
 
+    def contacts
+      contact_collection.all
+    end
+
     private
 
     def mailing_list_collection(options = {})
@@ -31,6 +35,10 @@ module QualtricsAPI
 
     def transaction_batch_collection(options = {})
       @transaction_batch_collection ||= QualtricsAPI::DirectoryTransactionBatchCollection.new(options.merge(id: directory_id)).propagate_connection(self)
+    end
+
+    def contact_collection(options = {})
+      @contact_collection ||= QualtricsAPI::DirectoryContactCollection.new(options.merge(id: directory_id)).propagate_connection(self)
     end
 
     def attributes_mappings
