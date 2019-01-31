@@ -3,6 +3,7 @@ require "spec_helper"
 describe QualtricsAPI::Directory do
   subject { described_class.new qualtrics_response }
   let(:directory_mailing_list_collection_double) { instance_double(QualtricsAPI::DirectoryMailingListCollection) }
+  let(:directory_transaction_batch_collection_double) { instance_double(QualtricsAPI::DirectoryTransactionBatchCollection) }
   let(:qualtrics_response) { {
     "directoryId" => "POOL_abc123",
     "name" => "Directory 123",
@@ -12,7 +13,9 @@ describe QualtricsAPI::Directory do
 
   before do
     allow(QualtricsAPI::DirectoryMailingListCollection).to receive(:new) { directory_mailing_list_collection_double }
+    allow(QualtricsAPI::DirectoryTransactionBatchCollection).to receive(:new) { directory_transaction_batch_collection_double }
     allow(directory_mailing_list_collection_double).to receive(:propagate_connection) { directory_mailing_list_collection_double }
+    allow(directory_transaction_batch_collection_double).to receive(:propagate_connection) { directory_transaction_batch_collection_double }
   end
 
   it { is_expected.to have_attributes(
@@ -59,6 +62,44 @@ describe QualtricsAPI::Directory do
 
     it "calls create on the directory mailing list collection with the given directory mailing list" do
       expect(directory_mailing_list_collection_double).to receive(:create_mailing_list).with(directory_mailing_list_double)
+    end
+  end
+
+  describe "#transaction_batches" do
+    before do
+      allow(directory_transaction_batch_collection_double).to receive(:all)
+    end
+
+    after do
+      subject.transaction_batches
+    end
+
+    it "creates a DirectoryTransactionBatchCollection with the same connection" do
+      expect(QualtricsAPI::DirectoryTransactionBatchCollection).to receive(:new).with(id: subject.directory_id)
+      expect(directory_transaction_batch_collection_double).to receive(:propagate_connection).with(subject)
+    end
+
+    it "calls all on the directory transaction batch collection" do
+      expect(directory_transaction_batch_collection_double).to receive(:all)
+    end
+  end
+
+  describe "#create_transaction_batch" do
+    before do
+      allow(directory_transaction_batch_collection_double).to receive(:create_transaction_batch)
+    end
+
+    after do
+      subject.create_transaction_batch
+    end
+
+    it "creates a DirectoryTransactionBatchCollection with the same connection" do
+      expect(QualtricsAPI::DirectoryTransactionBatchCollection).to receive(:new).with(id: subject.directory_id)
+      expect(directory_transaction_batch_collection_double).to receive(:propagate_connection).with(subject)
+    end
+
+    it "calls create on the directory transaction batch collection with the given directory transaction batch" do
+      expect(directory_transaction_batch_collection_double).to receive(:create_transaction_batch)
     end
   end
 end

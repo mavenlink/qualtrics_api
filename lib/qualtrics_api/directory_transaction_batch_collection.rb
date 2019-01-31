@@ -8,6 +8,12 @@ module QualtricsAPI
       find(directory_transaction_batch_id)
     end
 
+    def create_transaction_batch
+      response = QualtricsAPI.connection(self).post(list_endpoint, {}).body["result"]
+
+      QualtricsAPI::DirectoryTransactionBatch.new(id: response["id"]).propagate_connection(self)
+    end
+
     private
 
     def build_result(element)

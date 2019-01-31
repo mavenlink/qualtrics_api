@@ -15,10 +15,22 @@ module QualtricsAPI
       mailing_list_collection.create_mailing_list(directory_mailing_list)
     end
 
+    def transaction_batches
+      transaction_batch_collection.all
+    end
+
+    def create_transaction_batch
+      transaction_batch_collection.create_transaction_batch
+    end
+
     private
 
     def mailing_list_collection(options = {})
       @mailing_list_collection ||= QualtricsAPI::DirectoryMailingListCollection.new(options.merge(id: directory_id)).propagate_connection(self)
+    end
+
+    def transaction_batch_collection(options = {})
+      @transaction_batch_collection ||= QualtricsAPI::DirectoryTransactionBatchCollection.new(options.merge(id: directory_id)).propagate_connection(self)
     end
 
     def attributes_mappings
