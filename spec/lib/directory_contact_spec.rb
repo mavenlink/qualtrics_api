@@ -43,4 +43,21 @@ describe QualtricsAPI::DirectoryContact do
     mailing_list_membership: qualtrics_response["mailingListMembership"],
     transaction_data: qualtrics_response["transactionData"]
   ) }
+
+  describe "#import_attributes" do
+    let(:import_attributes) { {
+      "directoryUnsubscribed" => qualtrics_response["directoryUnsubscribed"],
+      "email" => qualtrics_response["email"],
+      "embeddedData" => qualtrics_response["embeddedData"],
+      "externalReference" => qualtrics_response["extRef"],
+      "firstName" => qualtrics_response["firstName"],
+      "language" => qualtrics_response["language"],
+      "lastName" => qualtrics_response["lastName"],
+      "transactionData" => qualtrics_response["transactionData"]
+    } }
+
+    it "returns only the correctly formatted attributes" do
+      expect(subject.import_attributes).to eq import_attributes
+    end
+  end
 end

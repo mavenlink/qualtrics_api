@@ -17,7 +17,12 @@ module QualtricsAPI
       attribute :embedded_data, Json
       attribute :stats, Json
       attribute :mailing_list_membership, Json
-      attribute :transaction_data, Json
+      attribute :transaction_data, Array[Json]
+    end
+
+    def import_attributes
+      attrs = self.attributes.compact.slice(*import_attributes_mappings.keys)
+      attrs.deep_transform_keys { |key| key.to_s.camelize(:lower) }
     end
 
     private
