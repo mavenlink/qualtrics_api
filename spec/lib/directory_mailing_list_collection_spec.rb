@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe QualtricsAPI::DirectoryMailingListCollection do
   subject { described_class.new(id: directory_id) }
-  let(:directory_id) { "UR_123abc" }
+  let(:directory_id) { "POOL_123abc" }
   let(:mailing_list_id) { "CG_000999" }
   let(:connection_double) { instance_double(Faraday::Connection) }
   let(:response) { instance_double(Faraday::Response, status: response_status, body: response_body) }
