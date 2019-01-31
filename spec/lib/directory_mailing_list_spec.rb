@@ -24,7 +24,7 @@ describe QualtricsAPI::DirectoryMailingList do
 
   describe "#create_attributes" do
     let(:create_attributes) { {
-      "name" => subject.name,
+      "name"    => subject.name,
       "ownerId" => subject.owner_id
     } }
 

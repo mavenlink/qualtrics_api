@@ -12,7 +12,7 @@ module QualtricsAPI
 
     def create_attributes
       attrs = self.attributes.compact.slice(*create_attributes_mappings.keys)
-      attrs.deep_transform_keys { |key| key.to_s.camelize(:lower) }
+      attrs.transform_keys { |key| create_attributes_mappings[key] }
     end
 
     private
