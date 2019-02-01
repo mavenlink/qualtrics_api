@@ -17,7 +17,7 @@ module QualtricsAPI
       attribute :embedded_data, Json
       attribute :stats, Json
       attribute :mailing_list_membership, Json
-      attribute :transaction_data, Array[Json]
+      attribute :transaction_data, Json
     end
 
     def import_attributes
