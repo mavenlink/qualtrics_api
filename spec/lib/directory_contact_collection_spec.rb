@@ -62,4 +62,39 @@ describe QualtricsAPI::DirectoryContactCollection do
       end
     end
   end
+
+  describe "#import_contacts" do
+    let(:connection_double) { instance_double(Faraday::Connection) }
+    let(:import_endpoint) { "directories/#{subject.id}/mailinglists/#{mailing_list_id}/transactioncontacts" }
+    let(:response_double) { instance_double(Faraday::Response, body: response_body) }
+    let(:directory_contacts) { [] }
+    let(:mailing_list_id) { "CG_abc123" }
+    let(:batch_id) { "BT_abd123" }
+
+    before do
+      allow(QualtricsAPI).to receive(:connection).with(subject) { connection_double }
+      allow(connection_double).to receive(:post) { response_double }
+    end
+
+
+    context "when there are transaction fields" do
+      let(:transaction_fields) { ["123", "abc"] }
+
+      it "calls post on the object with transaction meta fields" do
+        expect(QualtricsAPI).to receive(:connection).with(subject)
+        expect(connection_double).to receive(:post).with(import_endpoint, { "contacts" => [], "transactionMeta" => { "batchId"=>"BT_abd123", "fields"=>["123", "abc"] } })
+        subject.import_contacts(directory_contacts, mailing_list_id, batch_id, transaction_fields)
+      end
+    end
+
+    context "when there are no transaction fields" do
+      let(:transaction_fields) { nil }
+
+      it "calls post on the object without transaction meta fields" do
+        expect(QualtricsAPI).to receive(:connection).with(subject)
+        expect(connection_double).to receive(:post).with(import_endpoint, { "contacts" => [] })
+        subject.import_contacts(directory_contacts, mailing_list_id, batch_id, transaction_fields)
+      end
+    end
+  end
 end
