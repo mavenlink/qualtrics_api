@@ -27,6 +27,10 @@ module QualtricsAPI
       contact_collection.all
     end
 
+    def import_contacts(directory_contacts, mailing_list_id, batch_id = nil, transaction_fields = nil)
+      contact_collection.import_contacts(directory_contacts, mailing_list_id, batch_id, transaction_fields)
+    end
+
     private
 
     def mailing_list_collection(options = {})

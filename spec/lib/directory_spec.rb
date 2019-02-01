@@ -124,4 +124,28 @@ describe QualtricsAPI::Directory do
       expect(directory_contact_collection_double).to receive(:all)
     end
   end
+
+  describe "#import_contacts" do
+    let(:mailing_list_id) { "CG_abc123" }
+    let(:directory_contacts) { [instance_double(QualtricsAPI::DirectoryContact)] }
+    let(:batch_id) { "BT_abc123" }
+    let(:transaction_fields) { [] }
+
+    before do
+      allow(directory_contact_collection_double).to receive(:import_contacts)
+    end
+
+    after do
+      subject.import_contacts(mailing_list_id, directory_contacts, batch_id, transaction_fields)
+    end
+
+    it "creates a DirectoryContactCollection with the same connection" do
+      expect(QualtricsAPI::DirectoryContactCollection).to receive(:new).with(id: subject.directory_id)
+      expect(directory_contact_collection_double).to receive(:propagate_connection).with(subject)
+    end
+
+    it "calls import_contacts on the directory contact collection" do
+      expect(directory_contact_collection_double).to receive(:import_contacts).with(mailing_list_id, directory_contacts, batch_id, transaction_fields)
+    end
+  end
 end
