@@ -76,6 +76,9 @@ describe QualtricsAPI::DirectoryContactCollection do
       allow(connection_double).to receive(:post) { response_double }
     end
 
+    after do
+      subject.import_contacts(directory_contacts, mailing_list_id, batch_id, transaction_fields)
+    end
 
     context "when there are transaction fields" do
       let(:transaction_fields) { ["123", "abc"] }
@@ -83,7 +86,6 @@ describe QualtricsAPI::DirectoryContactCollection do
       it "calls post on the object with transaction meta fields" do
         expect(QualtricsAPI).to receive(:connection).with(subject)
         expect(connection_double).to receive(:post).with(import_endpoint, { "contacts" => [], "transactionMeta" => { "batchId"=>"BT_abd123", "fields"=>["123", "abc"] } })
-        subject.import_contacts(directory_contacts, mailing_list_id, batch_id, transaction_fields)
       end
     end
 
@@ -93,7 +95,6 @@ describe QualtricsAPI::DirectoryContactCollection do
       it "calls post on the object without transaction meta fields" do
         expect(QualtricsAPI).to receive(:connection).with(subject)
         expect(connection_double).to receive(:post).with(import_endpoint, { "contacts" => [] })
-        subject.import_contacts(directory_contacts, mailing_list_id, batch_id, transaction_fields)
       end
     end
   end

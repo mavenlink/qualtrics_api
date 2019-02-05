@@ -19,8 +19,8 @@ describe QualtricsAPI::DirectoryMailingList do
     owner_id: qualtrics_response["ownerId"],
     last_modified_date: qualtrics_response["lastModifiedDate"],
     creation_date: qualtrics_response["creationDate"],
-    contact_count: qualtrics_response["contactCount"])
-  }
+    contact_count: qualtrics_response["contactCount"]
+  ) }
 
   describe "#create_attributes" do
     let(:create_attributes) { {

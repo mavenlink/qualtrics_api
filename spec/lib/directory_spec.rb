@@ -25,8 +25,8 @@ describe QualtricsAPI::Directory do
     directory_id: qualtrics_response["directoryId"],
     name: qualtrics_response["name"],
     contact_count: qualtrics_response["contactCount"],
-    is_default: qualtrics_response["isDefault"])
-  }
+    is_default: qualtrics_response["isDefault"]
+  ) }
 
   describe "#mailing_lists" do
     before do
