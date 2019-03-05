@@ -94,10 +94,43 @@ describe QualtricsAPI::ResponseExport do
         expect(subject).to eq(described_class.new(subject.attributes))
       end
     end
-  
+
     context 'when different' do
       it 'returns false' do
         expect(subject).not_to eq(described_class.new)
+      end
+    end
+  end
+
+  describe "#open" do
+    before do
+      subject.instance_variable_set(:@completed, true)
+    end
+
+    context "when file_url is present" do
+      let(:connection_double) { instance_double(Faraday::Connection) }
+      let(:connection_headers) { { test: "header" } }
+
+      before do
+        subject.instance_variable_set(:@file_url, "some_url")
+
+        allow(QualtricsAPI).to receive(:connection).with(subject) { connection_double }
+        allow(connection_double).to receive(:headers) { connection_headers }
+      end
+
+      it "opens the linked file with the file_url and qualtrics connection" do
+        expect(Kernel).to receive(:open).with("some_url", connection_headers)
+        subject.open
+      end
+    end
+
+    context "when file_url is nil" do
+      before do
+        subject.instance_variable_set(:@file_url, nil)
+      end
+
+      it "raises a FileNotReadyError" do
+        expect { subject.open }.to raise_error(QualtricsAPI::FileNotReadyError, "Cannot open exported file because the file url is missing.")
       end
     end
   end

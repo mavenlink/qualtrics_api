@@ -32,7 +32,9 @@ module QualtricsAPI
     end
 
     def open(&block)
-      Kernel.open(@file_url, QualtricsAPI.connection(self).headers, &block)
+      raise QualtricsAPI::FileNotReadyError, "Cannot open exported file because the file url is missing." if file_url.nil?
+
+      Kernel.open(file_url, QualtricsAPI.connection(self).headers, &block)
     end
   end
 end
