@@ -12,7 +12,7 @@ module QualtricsAPI
     def raise_http_errors(code, body)
       case code
       when 404
-        raise NotFoundError, "Not Found"
+        raise NotFoundError, error_message(JSON.parse(body))
       when 400
         raise BadRequestError, error_message(JSON.parse(body))
       when 401
