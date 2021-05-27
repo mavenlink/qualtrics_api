@@ -56,5 +56,21 @@ describe QualtricsAPI::Client do
       client = subject.new('sample_token', 'somedcid')
       expect(client.connection.url_prefix.to_s).to eq('https://somedcid.qualtrics.com/API/v3/')
     end
+
+    context "when custom headers are specified" do
+      subject { described_class.new(token, "co1", custom_headers: custom_headers) }
+      let(:token) { "sample_token" }
+      let(:custom_headers) { { "custom" => "headers", "another" => "one" } }
+
+      it "establishes connection with api_token, user agent, and custom headers" do
+        expect(subject.connection).not_to be_nil
+        expect(subject.connection.headers).to eq(
+          {
+            "X-API-TOKEN" => token,
+            "User-Agent" => "Faraday v#{Faraday::VERSION}"
+          }.merge(custom_headers)
+        )
+      end
+    end
   end
 end
