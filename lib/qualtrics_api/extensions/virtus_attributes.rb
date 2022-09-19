@@ -3,13 +3,10 @@ module QualtricsAPI
     module VirtusAttributes
       class Json < Virtus::Attribute
         def coerce(value)
-          return value unless value.present?
+          return value if value.blank?
+          return value.with_indifferent_access if value.is_a?(::Hash)
 
-          value = JSON.parse(value) unless value.is_a? ::Hash
-
-          value.deep_transform_keys do |key|
-            key.upcase == key ? key.to_sym : key.to_s.underscore.to_sym
-          end.with_indifferent_access
+          JSON.parse(value).with_indifferent_access
         end
       end
     end
