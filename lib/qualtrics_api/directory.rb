@@ -34,15 +34,15 @@ module QualtricsAPI
     private
 
     def mailing_list_collection(options = {})
-      @mailing_list_collection ||= QualtricsAPI::DirectoryMailingListCollection.new(options.merge(id: directory_id)).propagate_connection(self)
+      @mailing_list_collection ||= QualtricsAPI::DirectoryMailingListCollection.new(**options.merge(id: directory_id)).propagate_connection(self)
     end
 
     def transaction_batch_collection(options = {})
-      @transaction_batch_collection ||= QualtricsAPI::DirectoryTransactionBatchCollection.new(options.merge(id: directory_id)).propagate_connection(self)
+      @transaction_batch_collection ||= QualtricsAPI::DirectoryTransactionBatchCollection.new(**options.merge(id: directory_id)).propagate_connection(self)
     end
 
     def contact_collection(options = {})
-      @contact_collection ||= QualtricsAPI::DirectoryContactCollection.new(options.merge(id: directory_id)).propagate_connection(self)
+      @contact_collection ||= QualtricsAPI::DirectoryContactCollection.new(**options.merge(id: directory_id)).propagate_connection(self)
     end
 
     def attributes_mappings
