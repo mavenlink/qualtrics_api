@@ -24,7 +24,7 @@ describe QualtricsAPI::SurveyCollection do
             :creation_date => "2016-04-01T09:12:05Z",
             :last_modified_date => "2016-04-06T15:04:28Z",
             :last_modified => nil,
-            :expiration => { "end_date" => nil, "start_date" => nil },
+            :expiration => { "endDate" => nil, "startDate" => nil },
             :questions => {},
             :export_column_map => {},
             :blocks => {},

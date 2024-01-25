@@ -55,6 +55,6 @@ describe QualtricsAPI::User do
     last_login_date: qualtrics_response["lastLoginDate"],
     timezone: qualtrics_response["timezone"],
     response_counts: qualtrics_response["responseCounts"],
-    permissions: qualtrics_response["permissions"].deep_transform_keys { |key| key.underscore.to_sym })
+    permissions: qualtrics_response["permissions"])
   }
 end

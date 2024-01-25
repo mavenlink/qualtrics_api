@@ -20,7 +20,7 @@ module QualtricsAPI
       attr_reader :result
 
       def start
-        response = QualtricsAPI.connection(self).post("responseexports", export_params)
+        response = QualtricsAPI.connection(self).post("responseexports", **export_params)
         export_id = response.body["result"]["id"]
         @result = ResponseExport.new(id: export_id, connection: self.connection)
       end
