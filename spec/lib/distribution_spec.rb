@@ -61,9 +61,9 @@ describe QualtricsAPI::Distribution do
     send_date: qualtrics_response["sendDate"],
     created_date: qualtrics_response["createdDate"],
     modified_date: qualtrics_response["modifiedDate"],
-    headers: qualtrics_response["headers"].deep_transform_keys { |key| key.underscore.to_sym },
-    recipients: qualtrics_response["recipients"].deep_transform_keys { |key| key.underscore.to_sym },
-    message: qualtrics_response["message"].deep_transform_keys { |key| key.underscore.to_sym },
+    headers: qualtrics_response["headers"],
+    recipients: qualtrics_response["recipients"],
+    message: qualtrics_response["message"],
     survey_link: qualtrics_response["surveyLink"],
     embedded_data: qualtrics_response["embeddedData"],
     stats: qualtrics_response["stats"])
