@@ -3,7 +3,7 @@ module QualtricsAPI
 
 
     def message_collection(options = {})
-      @message_collection ||= QualtricsAPI::LibraryMessageCollection.new(options.merge(id: id)).propagate_connection(self)
+      @message_collection ||= QualtricsAPI::LibraryMessageCollection.new(**options.merge(id: id)).propagate_connection(self)
     end
 
     def messages
