@@ -109,7 +109,7 @@ describe QualtricsAPI::ResponseExport do
 
     it "conforms to ruby 3 keyword-argument format" do
       subject.instance_variable_set(:@file_url, "some_url")
-      expect(Kernel).to receive(:open) do |*args, **kwargs|
+      expect(URI).to receive(:open) do |*args, **kwargs|
         expect(args).to eq ["some_url"]
         expect(kwargs.class).to eq Faraday::Utils::Headers
       end
@@ -128,7 +128,7 @@ describe QualtricsAPI::ResponseExport do
       end
 
       it "opens the linked file with the file_url and qualtrics connection" do
-        expect(Kernel).to receive(:open).with("some_url", connection_headers)
+        expect(URI).to receive(:open).with("some_url", connection_headers)
         subject.open
       end
     end
