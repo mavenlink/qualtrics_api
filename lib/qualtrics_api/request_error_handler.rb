@@ -2,6 +2,8 @@ require 'logger'
 
 module QualtricsAPI
   class RequestErrorHandler < Faraday::Response::Middleware
+    HTTP_RESPONSE_ERROR_RANGE = 400..599
+
     def on_complete(env)
       raise_http_errors(env[:status], env[:body])
       show_notices(env[:body])
@@ -14,6 +16,8 @@ module QualtricsAPI
       when 200, 202
         return
       else
+        return unless HTTP_RESPONSE_ERROR_RANGE.include?(code)
+
         raise http_error_class(code), error_message(JSON.parse(body))
       end
     end
