@@ -12,14 +12,9 @@ module QualtricsAPI
     private
 
     def raise_http_errors(code, body)
-      case code
-      when 200, 202
-        return
-      else
-        return unless HTTP_RESPONSE_ERROR_RANGE.include?(code)
+      return unless HTTP_RESPONSE_ERROR_RANGE.include?(code)
 
-        raise http_error_class(code), error_message(JSON.parse(body))
-      end
+      raise http_error_class(code), error_message(JSON.parse(body))
     end
 
     def http_error_class(code)
