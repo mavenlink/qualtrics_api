@@ -11,30 +11,41 @@ module QualtricsAPI
 
     def raise_http_errors(code, body)
       case code
+      when 200, 202
+        return
+      else
+        raise http_error_class(code), error_message(JSON.parse(body))
+      end
+    end
+
+    def http_error_class(code)
+      case code
       when 400
-        raise BadRequestError, error_message(JSON.parse(body))
+        BadRequestError
       when 401
-        raise UnauthorizedError, error_message(JSON.parse(body))
+        UnauthorizedError
       when 403
-        raise ForbiddenError, error_message(JSON.parse(body))
+        ForbiddenError
       when 404
-        raise NotFoundError, error_message(JSON.parse(body))
+        NotFoundError
       when 409
-        raise ConflictError, error_message(JSON.parse(body))
+        ConflictError
       when 413
-        raise RequestEntityTooLargeError, error_message(JSON.parse(body))
+        RequestEntityTooLargeError
       when 414
-        raise URITooLongError, error_message(JSON.parse(body))
+        URITooLongError
       when 415
-        raise UnsupportedMediaTypeError, error_message(JSON.parse(body))
+        UnsupportedMediaTypeError
       when 429
-        raise TooManyRequestsError, error_message(JSON.parse(body))
+        TooManyRequestsError
       when 500
-        raise InternalServerError, error_message(JSON.parse(body))
+        InternalServerError
       when 503
-        raise TemporaryInternalServerError, error_message(JSON.parse(body))
+        TemporaryInternalServerError
       when 504
-        raise GatewayTimeoutError, error_message(JSON.parse(body))
+        GatewayTimeoutError
+      else
+        UnknownResponseError
       end
     end
 
@@ -72,6 +83,7 @@ module QualtricsAPI
   class InternalServerError < StandardError; end
   class TemporaryInternalServerError < StandardError; end
   class GatewayTimeoutError < StandardError; end
+  class UnknownResponseError < StandardError; end
 
   # Application errors
   class NotSupported < StandardError; end
