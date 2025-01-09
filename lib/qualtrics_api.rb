@@ -5,7 +5,8 @@ require 'json'
 require 'open-uri'
 require 'virtus'
 require "faraday"
-require "faraday_middleware"
+require "faraday/follow_redirects"
+require "faraday/multipart"
 
 require "qualtrics_api/version"
 require "qualtrics_api/request_error_handler"
