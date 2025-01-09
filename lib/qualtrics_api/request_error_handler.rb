@@ -1,7 +1,7 @@
 require 'logger'
 
 module QualtricsAPI
-  class RequestErrorHandler < Faraday::Response::Middleware
+  class RequestErrorHandler < Faraday::Middleware
     HTTP_RESPONSE_ERROR_RANGE = 400..599
 
     def on_complete(env)

@@ -47,9 +47,10 @@ module QualtricsAPI
       Faraday.new(url: QualtricsAPI.url(data_center_id), headers: { "X-API-TOKEN" => api_token }.merge(custom_headers)) do |faraday|
         faraday.request :multipart
         faraday.request :json
-        faraday.response :json, :content_type => /\bjson$/
 
-        faraday.use FaradayMiddleware::FollowRedirects
+        faraday.response :json, :content_type => /\bjson$/
+        faraday.response :follow_redirects
+
         faraday.use QualtricsAPI::RequestErrorHandler
 
         faraday.adapter Faraday.default_adapter
