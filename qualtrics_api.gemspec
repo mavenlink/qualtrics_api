@@ -20,16 +20,16 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 3.0.6"
+  spec.required_ruby_version = ">= 3.2.0"
 
-  spec.add_dependency "activesupport", "~> 6.1"
+  spec.add_dependency "activesupport", "~> 7.0"
   spec.add_dependency "faraday", "~> 2"
   spec.add_dependency "faraday-follow_redirects", "~> 0.3"
   spec.add_dependency "faraday-multipart", "~> 1.1"
   spec.add_dependency "virtus", ">= 1.0"
 
-  spec.add_development_dependency "bundler", "~> 2.2"
-  spec.add_development_dependency "rake", "~> 12.3"
+  spec.add_development_dependency "bundler", "~> 2.4"
+  spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.7"
   spec.add_development_dependency "vcr", "~> 3.0"
 end
