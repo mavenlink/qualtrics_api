@@ -22,11 +22,13 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          gem install bundler --version 2.5.23
-          bundle _2.5.23_ install
+          BUNDLER_VERSION=$(cat .bundler-version)
+          gem install bundler --version "$BUNDLER_VERSION"
+          bundle _${BUNDLER_VERSION}_ install
 
       - name: Run tests
         env:
           RAILS_ENV: test
         run: |
-          bundle _2.5.23_ exec rspec
+          BUNDLER_VERSION=$(cat .bundler-version)
+          bundle _${BUNDLER_VERSION}_ exec rspec

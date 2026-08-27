@@ -1,4 +1,4 @@
 language: ruby
 rvm:
   - 3.0.6
-install: gem install bundler --version '2.5.23' && bundle _2.5.23_ install
+install: export BUNDLER_VERSION=$(cat .bundler-version) && gem install bundler --version "$BUNDLER_VERSION" && bundle _${BUNDLER_VERSION}_ install

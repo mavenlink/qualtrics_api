@@ -4,6 +4,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'qualtrics_api/version'
 
+bundler_version = File.read(File.expand_path(".bundler-version", __dir__)).strip
+
 Gem::Specification.new do |spec|
   spec.name          = "qualtrics_api"
   spec.version       = QualtricsAPI::VERSION
@@ -28,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday-multipart", "~> 1.1"
   spec.add_dependency "virtus", ">= 1.0"
 
-  spec.add_development_dependency "bundler", "~> 2.5.23"
+  spec.add_development_dependency "bundler", "~> #{bundler_version}"
   spec.add_development_dependency "rake", "~> 12.3"
   spec.add_development_dependency "rspec", "~> 3.7"
   spec.add_development_dependency "vcr", "~> 3.0"
