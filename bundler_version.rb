@@ -1,1 +1,3 @@
-BUNDLER_VERSION = "2.5.23"
+module BundlerVersion
+  VERSION = "2.5.23"
+end
