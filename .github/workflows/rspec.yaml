@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Set Bundler version
+        run: echo "BUNDLER_VERSION=$(ruby -e 'require_relative \"./bundler_version\"; print BUNDLER_VERSION')" >> $GITHUB_ENV
+
       - name: Gem cache
         id: cache-bundle
         uses: actions/cache@v1
@@ -22,7 +25,6 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          BUNDLER_VERSION=$(cat .bundler-version)
           gem install bundler --version "$BUNDLER_VERSION"
           bundle _${BUNDLER_VERSION}_ install
 
@@ -30,5 +32,4 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          BUNDLER_VERSION=$(cat .bundler-version)
           bundle _${BUNDLER_VERSION}_ exec rspec
