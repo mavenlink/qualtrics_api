@@ -12,14 +12,14 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Set Bundler version
-        run: echo "BUNDLER_VERSION=$(ruby -e 'require_relative \"./bundler_version\"; print BundlerVersion::VERSION')" >> $GITHUB_ENV
+        run: echo "BUNDLER_VERSION=$(ruby -e 'require_relative \"./lib/qualtrics_api/bundler_version\"; print QualtricsAPI::BundlerVersion::VERSION')" >> $GITHUB_ENV
 
       - name: Gem cache
         id: cache-bundle
         uses: actions/cache@v1
         with:
           path: vendor/bundle
-          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+          key: bundle-${{ hashFiles('**/Gemfile.lock', 'lib/qualtrics_api/bundler_version.rb') }}
 
       - name: Bundle install
         env:
