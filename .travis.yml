@@ -1,4 +1,0 @@
-language: ruby
-rvm:
-  - 3.0.6
-install: gem install bundler --version '2.5.23' && bundle _2.5.23_ install
