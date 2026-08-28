@@ -7,19 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ruby:3.0.6
+    env:
+      BUNDLER_VERSION: "2.5.23"
 
     steps:
       - uses: actions/checkout@v1
-
-      - name: Set Bundler version
-        run: echo "BUNDLER_VERSION=$(ruby -e 'require_relative \"./lib/qualtrics_api/bundler_version\"; print QualtricsAPI::BundlerVersion::VERSION')" >> $GITHUB_ENV
 
       - name: Gem cache
         id: cache-bundle
         uses: actions/cache@v1
         with:
           path: vendor/bundle
-          key: bundle-${{ hashFiles('**/Gemfile.lock', 'lib/qualtrics_api/bundler_version.rb') }}
+          key: bundle-${{ env.BUNDLER_VERSION }}-${{ hashFiles('**/Gemfile.lock') }}
 
       - name: Bundle install
         env:

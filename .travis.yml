@@ -1,4 +1,4 @@
 language: ruby
 rvm:
   - 3.0.6
-install: export BUNDLER_VERSION=$(ruby -e 'require_relative "./lib/qualtrics_api/bundler_version"; print QualtricsAPI::BundlerVersion::VERSION') && gem install bundler --version "$BUNDLER_VERSION" && bundle _${BUNDLER_VERSION}_ install
+install: gem install bundler --version '2.5.23' && bundle _2.5.23_ install
