@@ -33,7 +33,7 @@ Requires Ruby >= 3.1.0
 "faraday", "~> 2"
 "faraday-follow_redirects", "~> 0.3"
 "faraday-multipart", "~> 1.1"
-"virtus", "~> 2.0"
+"virtus", "~> 1.0"
 ```
 
 ## Usage
