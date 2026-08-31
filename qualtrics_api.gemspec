@@ -1,4 +1,3 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
@@ -15,18 +14,18 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/CambridgeEducation/qualtrics_api"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = `git ls-files -z`.split("\x0").reject { |file| file.end_with?(".gem") }
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 3.0.6"
+  spec.required_ruby_version = ">= 3.1.0"
 
   spec.add_dependency "activesupport", "~> 6.1"
   spec.add_dependency "faraday", "~> 2"
   spec.add_dependency "faraday-follow_redirects", "~> 0.3"
   spec.add_dependency "faraday-multipart", "~> 1.1"
-  spec.add_dependency "virtus", ">= 1.0"
+  spec.add_dependency "virtus", "~> 2.0"
 
   spec.add_development_dependency "bundler", "~> 2.5.23"
   spec.add_development_dependency "rake", "~> 12.3"
