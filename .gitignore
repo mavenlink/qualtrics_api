@@ -30,6 +30,7 @@ mkmf.log
 # tmp files and logs
 /log/*
 /tmp/*
+/*.gem
 
 # various artifacts
 **.war

@@ -6,26 +6,29 @@ jobs:
   rspec:
     runs-on: ubuntu-latest
     container:
-      image: ruby:3.0.6
+      image: ruby:3.1.6
+    env:
+      BUNDLER_VERSION: "2.5.23"
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - name: Gem cache
         id: cache-bundle
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: vendor/bundle
-          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+          key: bundle-${{ env.BUNDLER_VERSION }}-${{ hashFiles('**/Gemfile.lock') }}
 
       - name: Bundle install
         env:
           RAILS_ENV: test
         run: |
-          bundle install
+          gem install bundler --version "$BUNDLER_VERSION"
+          bundle _${BUNDLER_VERSION}_ install
 
       - name: Run tests
         env:
           RAILS_ENV: test
         run: |
-          bundle exec rspec
+          bundle _${BUNDLER_VERSION}_ exec rspec

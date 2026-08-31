@@ -1,6 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/qualtrics_api.svg)](http://badge.fury.io/rb/qualtrics_api)
 [![Dependency Status](https://gemnasium.com/pallymore/qualtrics_api.svg)](https://gemnasium.com/pallymore/qualtrics_api)
-[![Build Status](https://travis-ci.org/CambridgeEducation/qualtrics_api.svg)](https://travis-ci.org/CambridgeEducation/qualtrics_api)
 
 # QualtricsAPI
 
@@ -25,15 +24,16 @@ Or install it yourself as:
 
 ## Dependencies
 
-Currently this gem is built & tested with Ruby 2.3.x.
-Confirmed working with Ruby 2.4.x.
+This gem is built and tested with Ruby 3.1.x.
 
-Requires Ruby >= 2.3
+Requires Ruby >= 3.1.0
 
 ```ruby
-"faraday", "~> 0.13.1"
-"faraday_middleware", "~> 0.12.2"
-"virtus", "~> 1.0"
+"activesupport", "~> 6.1"
+"faraday", "~> 2"
+"faraday-follow_redirects", "~> 0.3"
+"faraday-multipart", "~> 1.1"
+"virtus", "~> 2.0"
 ```
 
 ## Usage
