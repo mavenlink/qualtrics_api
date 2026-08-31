@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 3.1.0"
 
-  spec.add_dependency "activesupport", "~> 7.0.8"
+  spec.add_dependency "activesupport", ">= 6.0", "< 8"
   spec.add_dependency "faraday", "~> 2"
   spec.add_dependency "faraday-follow_redirects", "~> 0.3"
   spec.add_dependency "faraday-multipart", "~> 1.1"
